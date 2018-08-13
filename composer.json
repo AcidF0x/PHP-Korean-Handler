@@ -1,0 +1,26 @@
+{
+    "name": "acidf0x/php-korean-handler",
+    "description": "PHP Korean Handler",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Duhui Cho",
+            "email": "ic_jdh@me.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AcidF0x\\KoreanHandler\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/polyfill-mbstring": "^1.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0"
+    },
+    "scripts": {
+        "test": "phpunit tests/HangulTest"
+    }
+}
