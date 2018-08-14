@@ -15,37 +15,37 @@ class Separator
     const HANGUL_SYLLABLE_END = 55215;
 
     // UNICODE TABLE - 0x1100 = ㄱ
-    const HANGUL_CHOSUNG_START = 4352;
+    const HANGUL_CHOSEONG_START = 4352;
 
     // UNICODE TABLE - 0x1161 = ㅏ
-    const HANGUL_JOONG_START = 4449;
+    const HANGUL_JOONGSEONG_START = 4449;
 
     // UNICODE TABLE - 0x11A8 = ᆨ
-    const HANGUL_JONGSUNG_START = 4520;
+    const HANGUL_JONGSEONG_START = 4520;
 
-    // SIMPLE CHOSUNG LIST
-    const SIMPLE_CHOSUNG_LIST = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
-
-    // SIMPLE JUNG SUNG LIST
-    const SIMPLE_JUNGSUNG_LIST = ["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅛ","ㅙ","ㅚ","ㅜ","ㅝ","ㅞ","ㅟ","ㅠ","ㅡ","ㅢ","ㅣ"];
+    // SIMPLE CHOSEONG LIST
+    const SIMPLE_CHOSEONG_LIST = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 
     // SIMPLE JUNG SUNG LIST
-    const SIMPLE_JONGSUNG_LIST = ["ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    const SIMPLE_JOONGSEONG_LIST = ["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅛ","ㅙ","ㅚ","ㅜ","ㅝ","ㅞ","ㅟ","ㅠ","ㅡ","ㅢ","ㅣ"];
+
+    // SIMPLE JUNG SUNG LIST
+    const SIMPLE_JONGSEONG_LIST = ["ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 
     /**
-     * @var null|String $chosung
+     * @var null|String $choseong
      */
-    protected $chosung = null;
+    protected $choseong = null;
 
     /**
-     * @var null|String $joongsung
+     * @var null|String $jungseong
      */
-    protected $joongsung = null;
+    protected $jungseong = null;
 
     /**
-     * @var null|String $jongsung
+     * @var null|String $jongseong
      */
-    protected $jongsung = null;
+    protected $jongseong = null;
 
     /**
      * @var bool $strictMode
@@ -57,30 +57,30 @@ class Separator
      */
     protected $split = [];
     /**
-     * Get chosung
+     * Get choseseong
      * @return null|String
      */
-    public function getChosung()
+    public function getChoseong()
     {
-        return $this->chosung;
+        return $this->choseseong;
     }
 
     /**
-     * Get joongsung
+     * Get jungseong
      * @return null|String
      */
-    public function getJoongsung()
+    public function getJungseong()
     {
-        return $this->joongsung;
+        return $this->jungseong;
     }
 
     /**
-     * Get Jongsung
+     * Get jongseong
      * @return null|String
      */
-    public function getJongsung()
+    public function getJongseong()
     {
-        return $this->jongsung;
+        return $this->jongseong;
     }
 
     public function getSplit()
@@ -103,11 +103,11 @@ class Separator
         }
 
         $base = $code - self::HANGUL_SYLLABLE_START;
-        $chosungBase = ($base / 28) / 21;
-        $joongsungBase = ($base / 28) % 21;
-        $jongsungBase = $base % 28 - 1;
+        $choseongBase = ($base / 28) / 21;
+        $jungseongBase = ($base / 28) % 21;
+        $jongseongBase = $base % 28 - 1;
 
-        $this->toChar($chosungBase, $joongsungBase, $jongsungBase);
+        $this->toChar($choseongBase, $jungseongBase, $jongseongBase);
 
         return $this;
     }
@@ -134,38 +134,38 @@ class Separator
 
     /**
      *
-     * @param float $chosungBase
-     * @param float $joongsungBase
-     * @param float $jongsungBase
+     * @param float $choseongBase
+     * @param float $jungseongBase
+     * @param float $jongseongBase
      * @return boolean
      */
-    protected function toChar($chosungBase, $joongsungBase, $jongsungBase)
+    protected function toChar($choseongBase, $jungseongBase, $jongseongBase)
     {
         if ($this->strictMode) {
-            $this->chosung= mb_chr($chosungBase + self::HANGUL_CHOSUNG_START);
-            $this->joongsung= mb_chr($joongsungBase + self::HANGUL_JOONG_START);
-            $this->split = [ $this->chosung, $this->joongsung ];
-            if ($jongsungBase > 0) {
-                $this->jongsung = mb_chr($jongsungBase + self::HANGUL_JONGSUNG_START);
-                $this->split[] = $this->jongsung;
+            $this->choseseong= mb_chr($choseongBase + self::HANGUL_CHOSEONG_START);
+            $this->jungseong= mb_chr($jungseongBase + self::HANGUL_JOONGSEONG_START);
+            $this->split = [ $this->choseseong, $this->jungseong ];
+            if ($jongseongBase > 0) {
+                $this->jongseong = mb_chr($jongseongBase + self::HANGUL_JONGSEONG_START);
+                $this->split[] = $this->jongseong;
             }
             return true;
         }
 
-        $this->chosung = self::SIMPLE_CHOSUNG_LIST[intval($chosungBase)];
-        $this->joongsung = self::SIMPLE_JUNGSUNG_LIST[intval($joongsungBase)];
-        $this->split = [ $this->chosung, $this->joongsung ];
-        if ($jongsungBase > 0) {
-            $this->jongsung = self::SIMPLE_JONGSUNG_LIST[intval($jongsungBase)];
-            $this->split[] = $this->jongsung;
+        $this->choseseong = self::SIMPLE_CHOSEONG_LIST[intval($choseongBase)];
+        $this->jungseong = self::SIMPLE_JOONGSEONG_LIST[intval($jungseongBase)];
+        $this->split = [ $this->choseseong, $this->jungseong ];
+        if ($jongseongBase > 0) {
+            $this->jongseong = self::SIMPLE_JONGSEONG_LIST[intval($jongseongBase)];
+            $this->split[] = $this->jongseong;
         }
     }
 
     protected function clear()
     {
-        $this->chosung = null;
-        $this->joongsung = null;
-        $this->jongsung = null;
+        $this->choseseong = null;
+        $this->jungseong = null;
+        $this->jongseong = null;
         $this->split = [];
     }
 }

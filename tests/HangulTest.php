@@ -10,71 +10,71 @@ class HangulTest extends TestCase
     {
         $separator = new Separator();
         $separator->separate('1');
-        $this->assertNull($separator->getChosung());
+        $this->assertNull($separator->getChoseong());
         $separator->separate('100');
-        $this->assertNull($separator->getChosung());
+        $this->assertNull($separator->getChoseong());
         $separator->separate('A');
-        $this->assertNull($separator->getChosung());
+        $this->assertNull($separator->getChoseong());
         $separator->separate('æ');
-        $this->assertNull($separator->getChosung());
+        $this->assertNull($separator->getChoseong());
         $separator->separate('語');
-        $this->assertNull($separator->getChosung());
+        $this->assertNull($separator->getChoseong());
     }
     public function testSimpleMode() {
         $separator = new Separator();
         $separator->separate("가");
-        $this->assertTrue($separator->getChosung() === "ㄱ");
-        $this->assertTrue($separator->getJoongsung() === "ㅏ");
-        $this->assertNull($separator->getJongsung());
+        $this->assertTrue($separator->getChoseong() === "ㄱ");
+        $this->assertTrue($separator->getJungseong() === "ㅏ");
+        $this->assertNull($separator->getJongseong());
 
 
         $separator->separate("곰");
-        $this->assertTrue($separator->getChosung() === "ㄱ");
-        $this->assertTrue($separator->getJoongsung() === "ㅗ");
-        $this->assertTrue($separator->getJongsung() === "ㅁ");
+        $this->assertTrue($separator->getChoseong() === "ㄱ");
+        $this->assertTrue($separator->getJungseong() === "ㅗ");
+        $this->assertTrue($separator->getJongseong() === "ㅁ");
 
         $separator->separate("쉐");
-        $this->assertTrue($separator->getChosung() === "ㅅ");
-        $this->assertTrue($separator->getJoongsung() === "ㅞ");
-        $this->assertNull($separator->getJongsung());
+        $this->assertTrue($separator->getChoseong() === "ㅅ");
+        $this->assertTrue($separator->getJungseong() === "ㅞ");
+        $this->assertNull($separator->getJongseong());
 
 
         $separator->separate("벼");
-        $this->assertTrue($separator->getChosung() === "ㅂ");
-        $this->assertTrue($separator->getJoongsung() === "ㅕ");
-        $this->assertNull($separator->getJongsung());
+        $this->assertTrue($separator->getChoseong() === "ㅂ");
+        $this->assertTrue($separator->getJungseong() === "ㅕ");
+        $this->assertNull($separator->getJongseong());
 
 
         $separator->separate("뷁");
-        $this->assertTrue($separator->getChosung() === "ㅂ");
-        $this->assertTrue($separator->getJoongsung() === "ㅞ");
-        $this->assertTrue($separator->getJongsung() === "ㄺ");
+        $this->assertTrue($separator->getChoseong() === "ㅂ");
+        $this->assertTrue($separator->getJungseong() === "ㅞ");
+        $this->assertTrue($separator->getJongseong() === "ㄺ");
     }
 
     public function testStrictMode() {
         $separator = new Separator();
         $separator->strictMode();
         $separator->separate("가");
-        $this->assertTrue($separator->getChosung() === mb_chr(0x1100));
-        $this->assertTrue($separator->getJoongsung() === mb_chr(0x1161));
-        $this->assertNull($separator->getJongsung());
+        $this->assertTrue($separator->getChoseong() === mb_chr(0x1100));
+        $this->assertTrue($separator->getJungseong() === mb_chr(0x1161));
+        $this->assertNull($separator->getJongseong());
 
 
         $separator->separate("곰");
-        $this->assertTrue($separator->getChosung() === mb_chr(0x1100));
-        $this->assertTrue($separator->getJoongsung() === mb_chr(0x1169));
-        $this->assertTrue($separator->getJongsung() === mb_chr(0x11B7));
+        $this->assertTrue($separator->getChoseong() === mb_chr(0x1100));
+        $this->assertTrue($separator->getJungseong() === mb_chr(0x1169));
+        $this->assertTrue($separator->getJongseong() === mb_chr(0x11B7));
 
         $separator->separate("쉐");
-        $this->assertTrue($separator->getChosung() === mb_chr(0x1109));
-        $this->assertTrue($separator->getJoongsung() === mb_chr(0x1170));
-        $this->assertNull($separator->getJongsung());
+        $this->assertTrue($separator->getChoseong() === mb_chr(0x1109));
+        $this->assertTrue($separator->getJungseong() === mb_chr(0x1170));
+        $this->assertNull($separator->getJongseong());
 
 
         $separator->separate("뷁");
-        $this->assertTrue($separator->getChosung() === mb_chr(0x1107));
-        $this->assertTrue($separator->getJoongsung() === mb_chr(0x1170));
-        $this->assertTrue($separator->getJongsung() === mb_chr(0x11b0));
+        $this->assertTrue($separator->getChoseong() === mb_chr(0x1107));
+        $this->assertTrue($separator->getJungseong() === mb_chr(0x1170));
+        $this->assertTrue($separator->getJongseong() === mb_chr(0x11b0));
     }
 
 }
