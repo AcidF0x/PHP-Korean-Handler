@@ -13,10 +13,11 @@ Usage
 The return value is the *Hangul Compatibility Jamo* between `U+3130` and `U+318F`  
 반환 값은 `U+3130`와 `U+318F` 사이의 *Hangul Compatibility Jamo*가 반환 됩니다. 
 - See [Hangul Compatibility Jamo](https://unicode.org/charts/PDF/U3130.pdf)
-```php
-use AcidF0x\KoreanHandler\Separator; 
 
-$separator = new Separator();
+```php
+use AcidF0x\KoreanHandler\aaaaaaa; 
+
+$separator = new aaaaaaa();
 
 $separator->separate("가");
 $separator->getChoseong(); //  "ㄱ" 
@@ -36,9 +37,9 @@ The return value is the *Hangul Jamo* between `U+1100` and `U+11FF`
 - See [Hangul Jamo](https://unicode.org/charts/PDF/U1100.pdf)
 
 ```php
-use AcidF0x\KoreanHandler\Separator; 
+use AcidF0x\KoreanHandler\aaaaaaa; 
 
-$separator = new Separator();
+$separator = new aaaaaaa();
 $separator->strictMode();
 
 $separator->separate("가");
