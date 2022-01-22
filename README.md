@@ -10,39 +10,37 @@ install using composer:
 
 Usage
 ------------
-The return value is the *Hangul Compatibility Jamo* between `U+3130` and `U+318F`  
-반환 값은 `U+3130`와 `U+318F` 사이의 *Hangul Compatibility Jamo*가 반환 됩니다. 
+조회시 반환 값은 `U+3130`와 `U+318F` 사이의 *Hangul Compatibility Jamo*가 반환 됩니다. 
 - See [Hangul Compatibility Jamo](https://unicode.org/charts/PDF/U3130.pdf)
 
 ```php
-use AcidF0x\KoreanHandler\aaaaaaa; 
+use AcidF0x\KoreanHandler\Seperator; 
 
-$separator = new aaaaaaa();
+$separator = new Seperator();
 
-$separator->separate("가");
-$separator->getChoseong(); //  "ㄱ" 
-$separator->getJungseong(); //  "ㅏ"
-$separator->getJongseong(); //  null
-$separator->getSplit(); //  ["ㄱ","ㅏ"]
-
-$separator->separate("셥");
-$separator->getChoseong(); //  "ㅅ"
-$separator->getJungseong(); //  "ㅕ"
-$separator->getJongseong(); //  "ㅂ"
-$separator->getSplit(); //  ["ㅅ", "ㅕ", "ㅂ"]
+$result = $separator->separate("수상하게 돈이 많은");
+print_r($result->getSplitList()); // ["ㅅ","ㅜ","ㅅ","ㅏ","ㅇ","ㅎ","ㅏ","ㄱ","ㅔ","ㄷ","ㅗ","ㄴ","ㅇ","ㅣ","ㅁ","ㅏ","ㄶ","ㅇ","ㅡ","ㄴ"]
+print_r($result->getChoseongList()); // ["ㅅ", "ㅅ", "ㅎ", "ㄱ", "ㄷ", "ㅇ", "ㅁ", "ㅇ"]
+print_r($result->getJungseongList()); // ["ㅜ", "ㅏ", "ㅏ", "ㅔ", "ㅗ", "ㅣ", "ㅏ", "ㅡ"]
+print_r($result->getJongseongList()); // ["ㅇ","ㄴ","ㄶ","ㄴ"]
 ```
-And Also, You can use the `strict mode` to get the correct *Hangul Jamo*  
-The return value is the *Hangul Jamo* between `U+1100` and `U+11FF`  
-엄격한 모드를 사용하여 `U+1100`와 `U+11FF` 사이의 정확한 한글 자모로 분리 할 수 있습니다.
-- See [Hangul Jamo](https://unicode.org/charts/PDF/U1100.pdf)
+`separate` 메서드의 리턴 값은 `ArrayAccess`, `Iterator` 인터페이스를 구현하였으므로
+각 결과에 대해 `Array`처럼 접근 하여 사용이 가능합니다
 
 ```php
-use AcidF0x\KoreanHandler\aaaaaaa; 
+$result = $this->separator->separate("황소");
 
-$separator = new aaaaaaa();
-$separator->strictMode();
+$result[0]->getChoseong(); // ㅎ
+$result[0]->getJungseong(); // ㅘ
+$result[0]->getJongseong(); // ㅇ
+$result[1]->getChoseong(); // ㅅ
+$result[1]->getJungseong(); // ㅗ
+$result[1]->getJongseong(); // null
 
-$separator->separate("가");
-$separator->getChoseong(); // "ᄀ" (U+1100)
-$separator->getJungseong(); //"ᅡ" (U+1161)
+$result[0]->getSplit(); // ["ㅎ", "ㅘ", "ㅇ"]
+
+
+foreach ($result as $character) {
+    $character->getChoseong();
+}
 ```
